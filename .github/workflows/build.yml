@@ -1,14 +1,9 @@
 name: Build
 
-#on:
-#  push:
-#    tags:
-#      - '*'
 on:
   push:
-    branches:
-      - 'master'
-      - 'releases/**'
+    tags:
+      - '*'
 
 jobs:
   build-and-release:
@@ -47,6 +42,7 @@ jobs:
     - name: Build docker image
       run: |
         ls -l notify-*
-        docker buildx build --platform linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64/v8,linux/ppc64le,linux/s390x -t nmgsz/cloud-build-notify:1 . --push
+        version=`echo ${{ github.ref_name }} | sed -e "s/^v//"`
+        docker buildx build --platform linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64/v8,linux/ppc64le,linux/s390x -t nmgsz/cloud-build-notify:${version} -t nmgsz/cloud-build-notify:latest . --push
         docker image ls
     
