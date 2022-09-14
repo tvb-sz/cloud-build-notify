@@ -14,7 +14,7 @@ jobs:
   build-and-release:
     strategy:
       matrix:
-        arch: [ "amd64", "arm64", "arm", "arm", "ppc64le", "s390x" ]
+        arch: [ "amd64", "arm64", "arm", "ppc64le", "s390x" ]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2

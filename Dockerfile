@@ -6,12 +6,8 @@ ARG TARGETARCH
 # 简介说明
 LABEL Maintainer="team tvb-sz <nmg-sz@tvb.com>" Description="Google Cloud Build notify Sender Image"
 
-# install bash & tzData & set TimeZone HK
-RUN apk update && apk add --no-cache bash tzdata \
-    && cp /usr/share/zoneinfo/Asia/Hong_Kong /etc/localtime \
-    && echo "Asia/Hong_Kong" > /etc/timezone \
-    && apk del tzdata \
-    && rm -rf /var/cache/apk/*
+# install bash
+RUN apk update && apk add --no-cache bash && rm -rf /var/cache/apk/*
 
 # 定义工作目录
 WORKDIR /srv/
