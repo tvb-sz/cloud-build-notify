@@ -12,9 +12,9 @@ on:
 
 jobs:
   build-and-release:
-    strategy:
-      matrix:
-        arch: [ "amd64", "arm64", "arm", "ppc64le", "s390x" ]
+#    strategy:
+#      matrix:
+#        arch: [ "386", "amd64", "arm64", "arm", "ppc64le", "s390x" ]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -26,7 +26,12 @@ jobs:
 
     - name: Build binary
       run: |
-        GOARCH=${{ matrix.arch }} GOOS=linux CGO_ENABLED=0 go build -ldflags "-s -w" -o notify-linux-${{ matrix.arch }} main.go
+        GOARCH=386 GOOS=linux CGO_ENABLED=0 go build -ldflags "-s -w" -o notify-linux-386 main.go
+        GOARCH=amd64 GOOS=linux CGO_ENABLED=0 go build -ldflags "-s -w" -o notify-linux-amd64 main.go
+        GOARCH=arm64 GOOS=linux CGO_ENABLED=0 go build -ldflags "-s -w" -o notify-linux-arm64 main.go
+        GOARCH=arm GOOS=linux CGO_ENABLED=0 go build -ldflags "-s -w" -o notify-linux-arm main.go
+        GOARCH=ppc64le GOOS=linux CGO_ENABLED=0 go build -ldflags "-s -w" -o notify-linux-ppc64le main.go
+        GOARCH=s390x GOOS=linux CGO_ENABLED=0 go build -ldflags "-s -w" -o notify-linux-s390x main.go
         ls -l notify-*
 
     - name: Set up Docker Buildx
@@ -42,6 +47,6 @@ jobs:
     - name: Build docker image
       run: |
         ls -l notify-*
-        docker buildx build --platform linux/${{ matrix.arch }} -t nmgsz/cloud-build-notify:1 . --push
+        docker buildx build --platform linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64/v8,linux/ppc64le,linux/s390x -t nmgsz/cloud-build-notify:1 . --push
         docker image ls
     
