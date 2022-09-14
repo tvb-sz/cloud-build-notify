@@ -42,6 +42,6 @@ jobs:
     - name: Build docker image
       run: |
         ls -l notify-*
-        docker buildx build --platform linux/${{ matrix.arch }} -t cloud-build-notify:1 . --push
+        docker buildx build --platform linux/${{ matrix.arch }} -t nmgsz/cloud-build-notify:1 . --push
         docker image ls
     
