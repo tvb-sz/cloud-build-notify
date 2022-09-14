@@ -1,0 +1,31 @@
+name: Build
+
+#on:
+#  push:
+#    tags:
+#      - '*'
+on:
+  push:
+    branches:
+      - 'master'
+      - 'releases/**'
+
+jobs:
+  build-and-release:
+    strategy:
+      matrix:
+        arch: [ "amd64", "arm64", "arm", "arm", "ppc64le", "s390x" ]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: 1.18
+
+    - name: Build binary
+      run: |
+        GOARCH=${{ matrix.arch }} GOOS=linux CGO_ENABLED=0 go build -ldflags "-s -w" -o notify-linux-${{ matrix.arch }} main.go
+        ls -l notify-*
+    
