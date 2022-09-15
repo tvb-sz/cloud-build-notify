@@ -3,9 +3,9 @@ module github.com/tvb-sz/cloud-build-notify
 go 1.18
 
 require (
-	github.com/jjonline/go-lib-backend/ding v0.0.0-20220914042758-48d9cd0cd0ab
-	github.com/jjonline/go-lib-backend/feishu v0.0.0-20220914042758-48d9cd0cd0ab
-	github.com/jjonline/go-lib-backend/logger v0.0.0-20220914042758-48d9cd0cd0ab
+	github.com/jjonline/go-lib-backend/ding v0.0.0-20220915030532-3ec9a1e6d30c
+	github.com/jjonline/go-lib-backend/feishu v0.0.0-20220915030532-3ec9a1e6d30c
+	github.com/jjonline/go-lib-backend/logger v0.0.0-20220915030532-3ec9a1e6d30c
 	github.com/spf13/cobra v1.4.0
 	go.uber.org/automaxprocs v1.4.0
 )
