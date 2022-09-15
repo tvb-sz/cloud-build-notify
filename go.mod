@@ -3,10 +3,8 @@ module github.com/tvb-sz/cloud-build-notify
 go 1.18
 
 require (
-	github.com/google/uuid v1.3.0
 	github.com/jjonline/go-lib-backend/ding v0.0.0-20220914042758-48d9cd0cd0ab
 	github.com/jjonline/go-lib-backend/feishu v0.0.0-20220914042758-48d9cd0cd0ab
-	github.com/jjonline/go-lib-backend/guzzle v0.0.0-20220914042758-48d9cd0cd0ab
 	github.com/jjonline/go-lib-backend/logger v0.0.0-20220914042758-48d9cd0cd0ab
 	github.com/spf13/cobra v1.4.0
 	go.uber.org/automaxprocs v1.4.0
@@ -27,6 +25,7 @@ require (
 	github.com/google/go-cmp v0.5.8 // indirect
 	github.com/inconshreveable/mousetrap v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
+	github.com/jjonline/go-lib-backend/guzzle v0.0.0-20211122025445-27c2aa57d1d3 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/leodido/go-urn v1.2.1 // indirect
 	github.com/mattn/go-isatty v0.0.14 // indirect

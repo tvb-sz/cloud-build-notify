@@ -1,9 +1,9 @@
 package command
 
 import (
-	"fmt"
 	"github.com/spf13/cobra"
 	"github.com/tvb-sz/cloud-build-notify/app/service"
+	"github.com/tvb-sz/cloud-build-notify/client"
 )
 
 // init version子命令
@@ -17,9 +17,9 @@ func init() {
 		Run: func(cmd *cobra.Command, args []string) {
 			service.NotifyService.InitDing(token, secret)
 			if err := service.NotifyService.DingNotifyOk(title, content); err != nil {
-				fmt.Printf("send fail: %s", err)
+				client.Logger.ErrorRecord("dingTalk", "send fail: "+err.Error())
 			} else {
-				fmt.Println("send ok")
+				client.Logger.InfoRecord("dingTalk", "send ok")
 			}
 		},
 	}

@@ -6,5 +6,5 @@ import (
 
 //go:noinline
 func iniLogger() *logger.Logger {
-	return logger.New("error", "stdout", "module")
+	return logger.New("info", "stdout", "module")
 }
