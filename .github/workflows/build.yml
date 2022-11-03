@@ -27,7 +27,14 @@ jobs:
         GOARCH=arm GOOS=linux CGO_ENABLED=0 go build -ldflags "-s -w" -o notify-linux-arm main.go
         GOARCH=ppc64le GOOS=linux CGO_ENABLED=0 go build -ldflags "-s -w" -o notify-linux-ppc64le main.go
         GOARCH=s390x GOOS=linux CGO_ENABLED=0 go build -ldflags "-s -w" -o notify-linux-s390x main.go
+        zip -v notify-linux-386.zip notify-linux-386
+        zip -v notify-linux-amd64.zip notify-linux-amd64
+        zip -v notify-linux-arm64.zip notify-linux-arm64
+        zip -v notify-linux-arm.zip notify-linux-arm
+        zip -v notify-linux-ppc64le.zip notify-linux-ppc64le
+        zip -v notify-linux-s390x.zip notify-linux-s390x
         ls -l notify-*
+        ls -l *.zip
 
     - name: Set up Docker Buildx
       id: buildx
@@ -45,4 +52,13 @@ jobs:
         version=`echo ${{ github.ref_name }} | sed -e "s/^v//"`
         docker buildx build --platform linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64/v8,linux/ppc64le,linux/s390x -t nmgsz/cloud-build-notify:${version} -t nmgsz/cloud-build-notify:latest . --push
         docker image ls
+
+    - name: Auto Release
+      uses: marvinpinto/action-automatic-releases@v1.2.1
+      with:
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        title: "{{ github.ref_name }}"
+        prerelease: false
+        files: |
+          *.zip
     
