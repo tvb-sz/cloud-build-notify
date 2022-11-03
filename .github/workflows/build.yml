@@ -27,8 +27,8 @@ jobs:
         GOARCH=arm GOOS=linux CGO_ENABLED=0 go build -ldflags "-s -w" -o notify-linux-arm main.go
         GOARCH=ppc64le GOOS=linux CGO_ENABLED=0 go build -ldflags "-s -w" -o notify-linux-ppc64le main.go
         GOARCH=s390x GOOS=linux CGO_ENABLED=0 go build -ldflags "-s -w" -o notify-linux-s390x main.go
-        apt update
-        apt install -y tar
+        sudo apt update
+        sudo apt install -y tar
         tar notify-linux-386.tar.gz notify-linux-386
         tar notify-linux-amd64.tar.gz notify-linux-amd64
         tar notify-linux-arm64.tar.gz notify-linux-arm64
