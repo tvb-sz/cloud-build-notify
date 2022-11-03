@@ -34,7 +34,7 @@ jobs:
         tar zcvf notify-linux-ppc64le.tar.gz notify-linux-ppc64le
         tar zcvf notify-linux-s390x.tar.gz notify-linux-s390x
         ls -l notify-*
-        ls -l *.zip
+        ls -l *.gz
 
     - name: Set up Docker Buildx
       id: buildx
