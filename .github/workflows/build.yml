@@ -27,12 +27,14 @@ jobs:
         GOARCH=arm GOOS=linux CGO_ENABLED=0 go build -ldflags "-s -w" -o notify-linux-arm main.go
         GOARCH=ppc64le GOOS=linux CGO_ENABLED=0 go build -ldflags "-s -w" -o notify-linux-ppc64le main.go
         GOARCH=s390x GOOS=linux CGO_ENABLED=0 go build -ldflags "-s -w" -o notify-linux-s390x main.go
-        zip -v notify-linux-386.zip notify-linux-386
-        zip -v notify-linux-amd64.zip notify-linux-amd64
-        zip -v notify-linux-arm64.zip notify-linux-arm64
-        zip -v notify-linux-arm.zip notify-linux-arm
-        zip -v notify-linux-ppc64le.zip notify-linux-ppc64le
-        zip -v notify-linux-s390x.zip notify-linux-s390x
+        apt update
+        apt install -y tar
+        tar notify-linux-386.tar.gz notify-linux-386
+        tar notify-linux-amd64.tar.gz notify-linux-amd64
+        tar notify-linux-arm64.tar.gz notify-linux-arm64
+        tar notify-linux-arm.tar.gz notify-linux-arm
+        tar notify-linux-ppc64le.tar.gz notify-linux-ppc64le
+        tar notify-linux-s390x.tar.gz notify-linux-s390x
         ls -l notify-*
         ls -l *.zip
 
