@@ -8,7 +8,7 @@ import (
 
 // init version子命令
 func init() {
-	var token, secret, title, content string
+	var token, secret, title, content, fatal string
 
 	feiShu := &cobra.Command{
 		Use:   "feiShu",
@@ -16,10 +16,23 @@ func init() {
 		Long:  "发送飞书机器人通知",
 		Run: func(cmd *cobra.Command, args []string) {
 			service.NotifyService.InitFeishu(token, secret)
-			if err := service.NotifyService.FeishuNotifyOk(title, content); err != nil {
-				client.Logger.ErrorRecord("feiShu", "send fail: "+err.Error())
-			} else {
-				client.Logger.InfoRecord("feiShu", "send ok")
+
+			// send `OK`/`SUCCESS` message
+			if fatal == "" {
+				if err := service.NotifyService.FeishuNotifyOk(title, content); err != nil {
+					client.Logger.ErrorRecord("feiShu", "send fail: "+err.Error())
+				} else {
+					client.Logger.InfoRecord("feiShu", "send ok")
+				}
+			}
+
+			// send `FAIL`/`ERROR` message
+			if fatal != "" {
+				if err := service.NotifyService.FeishuNotifyErr(title, content); err != nil {
+					client.Logger.ErrorRecord("feiShu", "send fail: "+err.Error())
+				} else {
+					client.Logger.InfoRecord("feiShu", "send ok")
+				}
 			}
 		},
 	}
@@ -28,6 +41,7 @@ func init() {
 	feiShu.Flags().StringVar(&secret, "secret", "", "飞书秘钥：签名校验用的秘钥")
 	feiShu.Flags().StringVar(&title, "title", "", "消息体标题")
 	feiShu.Flags().StringVar(&content, "content", "", "markdown格式的消息内容")
+	feiShu.Flags().StringVar(&fatal, "fatal", "", "消息体类型：留空不传成功态传任意值则是失败态")
 
 	RootCmd.AddCommand(feiShu)
 }

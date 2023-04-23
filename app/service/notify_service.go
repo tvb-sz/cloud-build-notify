@@ -50,3 +50,9 @@ func (n *notifyService) FeishuNotifyOk(title, content string) error {
 	ctx := context.Background()
 	return client.FeiShu.Info(ctx, title, strings.ReplaceAll(content, "\\n", "\n"), time.Now())
 }
+
+// FeishuNotifyErr 飞书发送`失败`状态消息
+func (n *notifyService) FeishuNotifyErr(title, content string) error {
+	ctx := context.Background()
+	return client.FeiShu.Error(ctx, title, strings.ReplaceAll(content, "\\n", "\n"), time.Now())
+}
